@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public static $permisos = [
-        "ADMINISTRADOR" => [
+        "DOCTOR" => [
             "usuarios.index",
             "usuarios.create",
             "usuarios.edit",
@@ -24,8 +24,6 @@ class UserController extends Controller
 
             "reportes.usuarios",
         ],
-        "GERENTE" => [],
-        "OPERADOR" => [],
     ];
 
     public static function getPermisosUser()
