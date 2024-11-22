@@ -17,6 +17,11 @@ class UserController extends Controller
             "usuarios.edit",
             "usuarios.destroy",
 
+            "pacientes.index",
+            "pacientes.create",
+            "pacientes.edit",
+            "pacientes.destroy",
+
             "configuracions.index",
             "configuracions.create",
             "configuracions.edit",

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
@@ -56,15 +57,13 @@ Route::middleware('auth')->prefix("admin")->group(function () {
         ["index", "store"]
     );
 
-    // URBACIONAZION
-    // Route::get("urbanizacions/api", [UrbanizacionController::class, 'api'])->name("urbanizacions.api");
-    // Route::get("urbanizacions/paginado", [UrbanizacionController::class, 'paginado'])->name("urbanizacions.paginado");
-    // Route::get("urbanizacions/listado", [UrbanizacionController::class, 'listado'])->name("urbanizacions.listado");
-    // Route::get("urbanizacions/info/{urbanizacion}", [UrbanizacionController::class, 'info'])->name("urbanizacions.info");
-    // Route::resource("urbanizacions", UrbanizacionController::class)->only(
-    //     ["index", "store", "update", "show", "destroy"]
-    // );
-
+    // PACIENTES
+    Route::get("pacientes/api", [PacienteController::class, 'api'])->name("pacientes.api");
+    Route::get("pacientes/paginado", [PacienteController::class, 'paginado'])->name("pacientes.paginado");
+    Route::get("pacientes/listado", [PacienteController::class, 'listado'])->name("pacientes.listado");
+    Route::resource("pacientes", PacienteController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
 
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");

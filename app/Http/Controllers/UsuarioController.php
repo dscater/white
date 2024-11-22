@@ -23,7 +23,6 @@ class UsuarioController extends Controller
         "ci_exp" => "required",
         "dir" => "required|min:1",
         "fono" => "required|min:1",
-        "tipo" => "required",
     ];
 
     public $mensajes = [
@@ -121,6 +120,7 @@ class UsuarioController extends Controller
             } while (User::where('usuario', $nombre_usuario)->get()->first());
 
             $request['password'] = 'NoNulo';
+            $request['tipo'] = 'DOCTOR';
             $request['fecha_registro'] = date('Y-m-d');
 
             // crear el Usuario

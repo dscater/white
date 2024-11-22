@@ -519,108 +519,16 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('pacientes.index')"
                     class="menu-item"
-                    :class="[
-                        route_current == 'programacions.index' ? 'active' : '',
-                    ]"
+                    :class="[route_current == 'pacientes.index' ? 'active' : '']"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('pacientes.index')" class="menu-link">
                         <div class="menu-icon">
-                            <i class="fa fa-table"></i>
+                            <i class="fa fa-users"></i>
                         </div>
-                        <div class="menu-text">Programación</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'asignacions.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-clipboard-list"></i>
-                        </div>
-                        <div class="menu-text">
-                            Asignación de Empresas/Sociedad
-                        </div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'contratos.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-clipboard-list"></i>
-                        </div>
-                        <div class="menu-text">Contratos</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'productos.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-box"></i>
-                        </div>
-                        <div class="menu-text">Productos</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'vehiculos.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-truck"></i>
-                        </div>
-                        <div class="menu-text">Vehículos</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'condutors.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-user-friends"></i>
-                        </div>
-                        <div class="menu-text">Conductores</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[route_current == 'empresas.index' ? 'active' : '']"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-list-alt"></i>
-                        </div>
-                        <div class="menu-text">Empresas/Sociedad</div>
-                    </a>
-                </div>
-                <div
-                    class="menu-item"
-                    :class="[
-                        route_current == 'proveedors.index' ? 'active' : '',
-                    ]"
-                >
-                    <a href="" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-list"></i>
-                        </div>
-                        <div class="menu-text">Proveedores</div>
-                    </a>
+                        <div class="menu-text">Pacientes</div>
+                    </Link>
                 </div>
                 <div
                     v-if="user_logeado.permisos.includes('usuarios.index')"

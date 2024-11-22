@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-11-2024 a las 21:54:38
+-- Tiempo de generación: 22-11-2024 a las 23:48:59
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -132,6 +132,17 @@ CREATE TABLE `historial_accions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `historial_accions`
+--
+
+INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
+(1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 77777777<br/>password: $2y$12$f4zC3PDPMeeJo.YSpTEHZ.ZS/8XcUV2gGoLCDGHfMXoppwI7e50E2<br/>tipo: DOCTOR<br/>foto: 1732317953_JPERES.jpg<br/>fecha_registro: 2024-11-22<br/>acceso: 1<br/>created_at: 2024-11-22 23:25:53<br/>updated_at: 2024-11-22 23:25:53<br/>', NULL, 'USUARIOS', '2024-11-22', '23:25:53', '2024-11-23 03:25:53', '2024-11-23 03:25:53'),
+(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: SOLTERO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:47:54<br/>', NULL, 'PACIENTES', '2024-11-22', '23:47:54', '2024-11-23 03:47:54', '2024-11-23 03:47:54'),
+(3, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: SOLTERO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:47:54<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZS<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:29<br/>', 'PACIENTES', '2024-11-22', '23:48:29', '2024-11-23 03:48:29', '2024-11-23 03:48:29'),
+(4, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZS<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:29<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:39<br/>', 'PACIENTES', '2024-11-22', '23:48:39', '2024-11-23 03:48:39', '2024-11-23 03:48:39'),
+(5, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:39<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319324_1.png<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:44<br/>', 'PACIENTES', '2024-11-22', '23:48:44', '2024-11-23 03:48:44', '2024-11-23 03:48:44');
+
 -- --------------------------------------------------------
 
 --
@@ -189,6 +200,13 @@ CREATE TABLE `pacientes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `fecha_nac`, `sexo`, `estado_civil`, `nacionalidad`, `lugar_nac`, `ocupacion`, `dir`, `fono`, `correo`, `nom_familiar`, `fono_familiar`, `foto`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'MARIO', 'CONDORI', 'SOLIZ', '3233322', 'LP', '2000-01-01', 'HOMBRE', 'CASADO', 'BOLIVIANO', 'LA PAZ', 'TRANSPORTISTA', 'LOS OLIVOS', '77777777', 'MARIO@GMAIL.COM', 'PEDRO CONDORI', '666666', '1732319324_1.png', '2024-11-22', '2024-11-23 03:47:54', '2024-11-23 03:48:44');
+
 -- --------------------------------------------------------
 
 --
@@ -238,7 +256,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `dir`, `email`, `fono`, `password`, `tipo`, `foto`, `fecha_registro`, `acceso`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin', NULL, '0', '', '', 'admin@admin.com', '', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 'DOCTOR', NULL, '2024-11-09', 1, NULL, NULL);
+(1, 'admin', 'admin', 'admin', NULL, '0', '', '', 'admin@admin.com', '', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 'DOCTOR', NULL, '2024-11-09', 1, NULL, NULL),
+(2, 'JPERES', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', 'JUAN@GMAIL.COM', '77777777', '$2y$12$f4zC3PDPMeeJo.YSpTEHZ.ZS/8XcUV2gGoLCDGHfMXoppwI7e50E2', 'DOCTOR', '1732317953_JPERES.jpg', '2024-11-22', 1, '2024-11-23 03:25:53', '2024-11-23 03:25:53');
 
 --
 -- Índices para tablas volcadas
@@ -348,7 +367,7 @@ ALTER TABLE `examen_detalles`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -360,7 +379,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimientos`
@@ -372,7 +391,7 @@ ALTER TABLE `seguimientos`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
