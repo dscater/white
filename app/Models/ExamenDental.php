@@ -12,7 +12,7 @@ class ExamenDental extends Model
     protected $fillable = [
         "paciente_id",
         "dolencia_actual",
-        "imagen",
+        "imagen1",
         "imagen2",
         "resultado",
         "fecha_registro",
@@ -27,16 +27,26 @@ class ExamenDental extends Model
 
     public function getUrlImagen1Attribute()
     {
-        return asset("imgs/diagnosticos/" . $this->imagen1) . '?p=' . random_int(199, 1000);
+        return asset("imgs/examen_dentals/" . $this->imagen1) . '?p=' . random_int(199, 1000);
     }
 
     public function getUrlImagen2Attribute()
     {
-        return asset("imgs/diagnosticos/" . $this->imagen2) . '?p=' . random_int(199, 1000);
+        return asset("imgs/examen_dentals/" . $this->imagen2) . '?p=' . random_int(199, 1000);
     }
 
     public function paciente()
     {
         return $this->belongsTo(Paciente::class, 'paciente_id');
+    }
+
+    public function examen_detalles()
+    {
+        return $this->hasMany(ExamenDetalle::class, 'examen_dental_id');
+    }
+
+    public function seguimientos()
+    {
+        return $this->hasOne(Seguimiento::class, 'examen_dental_id');
     }
 }

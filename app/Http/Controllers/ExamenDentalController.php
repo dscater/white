@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExamenDental;
+use App\Models\ExamenDetalle;
 use App\Models\HistorialAccion;
+use App\Models\Seguimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -14,12 +17,16 @@ class ExamenDentalController extends Controller
 {
     public $validacion = [
         "paciente_id" => "required",
-        "descripcion" => "required",
-
+        "dolencia_actual" => "required",
+        "examen_detalles" => "required|array|min:1"
     ];
 
     public $mensajes = [
         "paciente_id.required" => "Este campo es obligatorio",
+        "dolencia_actual.required" => "Este campo es obligatorio",
+        "examen_detalles.required" => "Debe existir al menos un registro",
+        "examen_detalles.array" => "Se espera una lista de registros",
+        "examen_detalles.min" => "Debe existir al menos :min registros",
     ];
 
     public function index()
@@ -65,107 +72,98 @@ class ExamenDentalController extends Controller
 
     public function procesarImagen(Request $request)
     {
-        if ($request->hasFile("imagen")) {
-            $image = $request->file('imagen');
-            $filename = $image->getClientOriginalName();
-            $target_path = public_path('imgs/procesamiento/' . $filename);
-            $examen_dental = "NO TIENE CANCER";
-            try {
-                $examen_dental = $this->getExamenDental($filename);
-                $target_path = public_path('imgs/procesamiento/' . $filename);
-                // Procesar la imagen
-                $this->addBorderToImage($image, $target_path, $examen_dental);
-            } catch (\Exception $e) {
-                Log::debug($e->getMessage());
-            }
+        $file_get_ruta = public_path('/rutapreparados.txt');
+        $public_path_imgs = public_path("imgs/examen_dentals/");
+        if (file_exists($file_get_ruta)) {
 
-            sleep(2);
-            return response()->JSON([
-                "url_imagen2" => asset('imgs/procesamiento/' . $filename) . '?p=' . random_int(199, 1000),
-                "examen_dental" => $examen_dental
-            ]);
-        } else {
-            throw ValidationException::withMessages([
-                "error" => "No se cargo ningúna imagen",
-            ]);
+            if ($request->hasFile("imagen")) {
+                $image = $request->file('imagen');
+                $filename = $image->getClientOriginalName();
+
+                $file_ruta = fopen($file_get_ruta, "r");
+                $ruta_archivos = fgets($file_ruta);
+                fclose($file_ruta);
+                $files = scandir($ruta_archivos); // Listar archivos carpeta externa:
+                $apunta_file = "";
+                $total_marcas = 0;
+                $ext_img = "";
+                foreach ($files as $file) {
+                    // dividir el nombre dos veces
+                    $arr_file_o = explode(".", $filename);
+                    $arr1 = explode(".", $file);
+                    // comparar nombre
+                    if (count($arr1) > 1) {
+                        $arr2 = explode("_", $arr1[0]);
+                        if ($arr2[0] == $arr_file_o[0]) {
+                            if (count($arr2) > 1) {
+                                // apuntar el file
+                                $apunta_file = $file;
+                                $ext_img = $arr1[1];
+                                // total marcas
+                                $total_marcas = $arr2[1];
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                if ($apunta_file) {
+                    $nom_generado = random_int(1, 10) . time() . ".$ext_img";
+                    // Log::debug($ruta_archivos . "/" . $apunta_file);
+                    // Log::debug($public_path_imgs .  $nom_generado);
+                    copy($ruta_archivos . "/" . $apunta_file, $public_path_imgs . $nom_generado);
+                    $resultado = "NO SE ENCONTRÓ CARIES DEL PACIENTE";
+                    if ($total_marcas > 0) {
+                        $resultado = "SE ECONTRARON " . $total_marcas . " CARIES DEL PACIENTE";
+                    }
+
+                    sleep(2);
+                    return response()->JSON([
+                        "n" => $nom_generado,
+                        "url_imagen2" => asset('imgs/examen_dentals/' . $nom_generado) . '?p=' . random_int(199, 1000),
+                        "resultado" => $resultado,
+                        "total_marcas" => $total_marcas,
+                    ]);
+                }
+            } else {
+
+                return response()->JSON([
+                    "message" => "No se cargo ninguna imagen",
+                ], 500);
+            }
         }
+
 
         return response()->JSON([
-            "message" => "No se cargo ninguna imagen",
+            "message" => "Ocurrió un error de sistema, intente mas tarde por favor",
         ], 500);
-    }
-
-    private function getExamenDental($filename)
-    {
-        $nombre = mb_strtolower($filename);
-        $rango_fallo = [1, 2, 3, 4, 5];
-        $rango_sin_cancer = [92, 93, 94, 95, 96, 97, 98, 99, 100];
-        $probabilidad = random_int(1, 100);
-
-        if (strpos($nombre, "ben") > -1) {
-            if (in_array($probabilidad, $rango_sin_cancer)) {
-                return "NO TIENE CANCER";
-            }
-            return "CANCER DE MAMA BENIGNO";
-        }
-        if (strpos($nombre, "mal") > -1) {
-            if (in_array($probabilidad, $rango_fallo)) {
-                return "CANCER DE MAMA BENIGNO";
-            }
-            return "CANCER DE MAMA MALIGNO";
-        }
-        return "CANCER DE MAMA MALIGNO";
-    }
-
-    private function addBorderToImage($image, $target_path, $examen_dental)
-    {
-        // Cargar la imagen
-        $image_resource = imagecreatefromstring(file_get_contents($image->getPathname()));
-
-        // Procesar la imagen
-        $color = imagecolorallocate($image_resource, 23, 237, 21);
-        $thickness = 10; // Grosor del borde
-        imagesetthickness($image_resource, $thickness); // Aplicar grosor del borde
-        $x1 = 700; // Coordenada X del vértice superior izquierdo del rectángulo
-        $y1 = 600; // Coordenada Y del vértice superior izquierdo del rectángulo
-        $x2 = imagesx($image_resource) - 700; // Coordenada X del vértice inferior derecho del rectángulo
-        $y2 = imagesy($image_resource) - 600; // Coordenada Y del vértice inferior derecho del rectángulo
-        imagerectangle($image_resource, $x1, $y1, $x2, $y2, $color);
-        if ($examen_dental != 'NO TIENE CANCER') {
-            $circle_color = imagecolorallocate($image_resource, 255, 0, 0);
-            if ($examen_dental == 'CANCER DE MAMA BENIGNO') {
-                $circle_color = imagecolorallocate($image_resource, 230, 230, 0);
-            }
-            $ellipse_thickness = 10; // Grosor del círculo
-            // Coordenadas para el círculo
-            $centerX = imagesx($image_resource)  / 2; // Coordenada X del centro del círculo
-            $centerY = (imagesy($image_resource) / 2) - 200; // Coordenada Y del centro del círculo
-            $width = imagesx($image_resource) / 8; // Ancho del círculo
-            $height = imagesy($image_resource) / 16; // Altura del círculo
-
-            // Dibujar el círculo con grosor
-            for ($i = 0; $i < $ellipse_thickness; $i++) {
-                imageellipse($image_resource, $centerX, $centerY, $width - $i, $height - $i, $circle_color);
-            }
-        }
-
-        // Guardar la imagen modificada
-        imagejpeg($image_resource, $target_path);
-
-        // Liberar memoria
-        imagedestroy($image_resource);
     }
 
     public function store(Request $request)
     {
+        $this->validacion["imagen1"] = "required";
         $request->validate($this->validacion, $this->mensajes);
+
+        $examen_detalles = $request->examen_detalles;
+        $error = false;
+        foreach ($examen_detalles as $ed) {
+            if (trim($ed["diagnostico"]) == '' || trim($ed["observaciones"]) == '') {
+                $error  = true;
+                break;
+            }
+        }
+
+        if ($error) {
+            return throw ValidationException::withMessages(["examen_detalles" => "Debes completar todos los campos de DIAGNOSTICO y OBSERVACIONES"]);
+        }
+
+
         $request['fecha_registro'] = date('Y-m-d');
-        $request['fecha_examen_dental'] = date('Y-m-d');
         DB::beginTransaction();
         try {
             // crear el ExamenDental
-            $nuevo_examen_dental = ExamenDental::create(array_map('mb_strtoupper', $request->except('imagen1', 'imagen2')));
-
+            $nuevo_examen_dental = ExamenDental::create(array_map('mb_strtoupper', $request->except('imagen1', "examen_detalles", "eliminados")));
+            $nuevo_examen_dental->imagen2 = $request->imagen2;
             if ($request->file("imagen1")) {
                 $imagen1 = $request->file('imagen1');
                 $nom_archivo = "ExamenDental" . $nuevo_examen_dental->id . "_" . time() . "1." . $imagen1->getClientOriginalExtension();
@@ -173,21 +171,33 @@ class ExamenDentalController extends Controller
                 $nuevo_examen_dental->imagen1 = $nom_archivo;
             }
 
-            if ($request->file("imagen2")) {
-                $imagen2 = $request->file('imagen2');
-                $nom_archivo = "ExamenDental" . $nuevo_examen_dental->id . "_" . time() . "2." . $imagen2->getClientOriginalExtension();
-                $imagen2->move(public_path() . '/imgs/examen_dentals/', $nom_archivo);
-                $nuevo_examen_dental->imagen2 = $nom_archivo;
-            }
             $nuevo_examen_dental->save();
+
+            foreach ($examen_detalles as $ed) {
+                $nuevo_detalle = $nuevo_examen_dental->examen_detalles()->create([
+                    "pieza" => mb_strtoupper($ed["pieza"]),
+                    "diagnostico" => mb_strtoupper($ed["diagnostico"]),
+                    "observaciones" => mb_strtoupper($ed["observaciones"]),
+                ]);
+
+                Seguimiento::create([
+                    "paciente_id" => $nuevo_examen_dental->paciente_id,
+                    "examen_dental_id" => $nuevo_examen_dental->id,
+                    "examen_detalle_id" => $nuevo_detalle->id,
+                    "pieza" => $nuevo_detalle->pieza,
+                    "estado" => "PENDIENTE",
+                    "observacion" => "",
+                    "fecha_registro" => null,
+                ]);
+            }
 
             $datos_original = HistorialAccion::getDetalleRegistro($nuevo_examen_dental, "examen_dentals");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN DIAGNOSTICO POR IMAGEN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN EXAMEN DENTAL',
                 'datos_original' => $datos_original,
-                'modulo' => 'DIAGNOSTICO POR IMAGENES',
+                'modulo' => 'EXAMENES DENTALES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -206,37 +216,79 @@ class ExamenDentalController extends Controller
 
     public function edit(ExamenDental $examen_dental)
     {
+        $examen_dental = $examen_dental->load(["examen_detalles"]);
         return Inertia::render("ExamenDentals/Edit", compact("examen_dental"));
     }
 
     public function update(ExamenDental $examen_dental, Request $request)
     {
         $request->validate($this->validacion, $this->mensajes);
+        $examen_detalles = $request->examen_detalles;
+        $error = false;
+        foreach ($examen_detalles as $ed) {
+            if (trim($ed["diagnostico"]) == '' || trim($ed["observaciones"]) == '') {
+                $error  = true;
+                break;
+            }
+        }
+        if ($error) {
+            return throw ValidationException::withMessages(["examen_detalles" => "Debes completar todos los campos de DIAGNOSTICO y OBSERVACIONES"]);
+        }
         DB::beginTransaction();
         try {
             $request['fecha_examen_dental'] = date('Y-m-d');
             $datos_original = HistorialAccion::getDetalleRegistro($examen_dental, "examen_dentals");
-            $examen_dental->update(array_map('mb_strtoupper', $request->except('imagen1', 'imagen2')));
+            $examen_dental->update(array_map('mb_strtoupper', $request->except('imagen1', "examen_detalles", "eliminados")));
+            $examen_dental->imagen2 = $request->imagen2;
 
             if ($request->file("imagen1")) {
                 $antiguo = $examen_dental->imagen1;
                 \File::delete(public_path("imgs/examen_dentals/" . $antiguo));
 
                 $imagen1 = $request->file('imagen1');
-                $nom_archivo = "ExamenDental" . ($examen_dental->id) . "_" . time() . "1." . $imagen1->getClientOriginalExtension();
+                $nom_archivo = "ed" . ($examen_dental->id) . "_" . time() . "1." . $imagen1->getClientOriginalExtension();
                 $imagen1->move(public_path() . '/imgs/examen_dentals/', $nom_archivo);
                 $examen_dental->imagen1 = $nom_archivo;
             }
 
-            if ($request->file("imagen2")) {
-                $antiguo = $examen_dental->imagen2;
-                \File::delete(public_path("imgs/examen_dentals/" . $antiguo));
-
-                $imagen2 = $request->file('imagen2');
-                $nom_archivo = "ExamenDental" . ($examen_dental->id) . "_" . time() . "2." . $imagen2->getClientOriginalExtension();
-                $imagen2->move(public_path() . '/imgs/examen_dentals/', $nom_archivo);
-                $examen_dental->imagen2 = $nom_archivo;
+            if ($request->eliminados) {
+                foreach ($request->eliminados as $e) {
+                    $examen_detalle = ExamenDetalle::find($e);
+                    if ($examen_detalle) {
+                        $examen_detalle->seguimiento()->delete();
+                        $examen_detalle->delete();
+                    }
+                }
             }
+
+            foreach ($examen_detalles as $ed) {
+                $data_detalle = [
+                    "pieza" => mb_strtoupper($ed["pieza"]),
+                    "diagnostico" => mb_strtoupper($ed["diagnostico"]),
+                    "observaciones" => mb_strtoupper($ed["observaciones"])
+                ];
+                if ($ed["id"] == 0) {
+                    $nuevo_detalle = $examen_dental->examen_detalles()->create($data_detalle);
+                    Seguimiento::create([
+                        "paciente_id" => $examen_dental->paciente_id,
+                        "examen_dental_id" => $examen_dental->id,
+                        "examen_detalle_id" => $nuevo_detalle->id,
+                        "pieza" => $nuevo_detalle->pieza,
+                        "estado" => "PENDIENTE",
+                        "observacion" => "",
+                        "fecha_registro" => null,
+                    ]);
+                } else {
+                    $examen_detalle = ExamenDetalle::find($ed["id"]);
+                    if ($examen_detalle) {
+                        if ($examen_detalle->pieza != $data_detalle["pieza"] || $examen_detalle->diagnostico != $data_detalle["diagnostico"] || $examen_detalle->observaciones != $data_detalle["observaciones"]) {
+                            $examen_detalle->update($data_detalle);
+                            $examen_detalle->seguimiento->update(["estado" => "PENDIENTE"]);
+                        }
+                    }
+                }
+            }
+
 
             $examen_dental->save();
 
@@ -244,10 +296,10 @@ class ExamenDentalController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'MODIFICACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN DIAGNOSTICO POR IMAGEN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN EXAMEN DENTAL',
                 'datos_original' => $datos_original,
                 'datos_nuevo' => $datos_nuevo,
-                'modulo' => 'DIAGNOSTICO POR IMAGENES',
+                'modulo' => 'EXAMENES DENTALES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -270,14 +322,19 @@ class ExamenDentalController extends Controller
             $ruta_imagen1 = public_path("imgs/examen_dentals/" . $examen_dental->imagen1);
             $ruta_imagen2 = public_path("imgs/examen_dentals/" . $examen_dental->imagen2);
 
+            foreach ($examen_dental->examen_detalles as $examen_detalle) {
+                $examen_detalle->seguimiento()->delete();
+                $examen_detalle->delete();
+            }
+
             $datos_original = HistorialAccion::getDetalleRegistro($examen_dental, "examen_dentals");
             $examen_dental->delete();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN DIAGNOSTICO POR IMAGEN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN EXAMEN DENTAL',
                 'datos_original' => $datos_original,
-                'modulo' => 'DIAGNOSTICO POR IMAGENES',
+                'modulo' => 'EXAMENES DENTALES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);

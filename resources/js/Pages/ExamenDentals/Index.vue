@@ -158,6 +158,7 @@ onBeforeUnmount(() => {
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                                 <th width="2%"></th>
                             </tr>
                         </thead>

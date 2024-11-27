@@ -9,6 +9,8 @@ const oExamenDental = reactive({
     imagen2: "",
     examen_dental: "",
     resultado: "",
+    examen_detalles: [],
+    eliminados: [],
     fecha_registro: "",
     // appends
     url_imagen1: "",
@@ -148,6 +150,8 @@ export const useExamenDentals = () => {
             oExamenDental.examen_dental = item.examen_dental;
             oExamenDental.resultado = item.resultado;
             oExamenDental.fecha_registro = item.fecha_registro;
+            oExamenDental.examen_detalles = item.examen_detalles;
+            oExamenDental.eliminados = [];
             // appends
             oExamenDental.url_imagen1 = item.url_imagen1;
             oExamenDental.url_imagen2 = item.url_imagen2;
@@ -166,6 +170,8 @@ export const useExamenDentals = () => {
         oExamenDental.examen_dental = "";
         oExamenDental.resultado = "";
         oExamenDental.fecha_registro = "";
+        oExamenDental.examen_detalles = [];
+        oExamenDental.eliminados = [];
         // appends
         oExamenDental.url_imagen1 = "";
         oExamenDental.url_imagen2 = "";

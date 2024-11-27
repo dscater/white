@@ -15,14 +15,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("paciente_id");
             $table->unsignedBigInteger("examen_dental_id");
+            $table->unsignedBigInteger("examen_detalle_id");
             $table->string("pieza");
             $table->string("estado");
             $table->string("observacion", 400)->nullable();
-            $table->date("fecha_registro");
+            $table->date("fecha_registro")->nullable();
             $table->timestamps();
 
             $table->foreign("paciente_id")->on("pacientes")->references("id");
             $table->foreign("examen_dental_id")->on("examen_dentals")->references("id");
+            $table->foreign("examen_detalle_id")->on("examen_detalles")->references("id");
         });
     }
 

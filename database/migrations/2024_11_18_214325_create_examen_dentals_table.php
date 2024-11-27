@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("paciente_id");
             $table->string("dolencia_actual", 300);
-            $table->string("imagen");
-            $table->string("imagen2");
+            $table->string("imagen1")->nullable();
+            $table->string("imagen2")->nullable();
             $table->string("resultado");
             $table->date("fecha_registro");
             $table->timestamps();

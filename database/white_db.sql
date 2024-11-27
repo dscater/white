@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-11-2024 a las 18:15:32
+-- Tiempo de generación: 27-11-2024 a las 23:26:49
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -117,13 +117,20 @@ CREATE TABLE `examen_dentals` (
   `id` bigint UNSIGNED NOT NULL,
   `paciente_id` bigint UNSIGNED NOT NULL,
   `dolencia_actual` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imagen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imagen2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagen1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imagen2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `resultado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_registro` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `examen_dentals`
+--
+
+INSERT INTO `examen_dentals` (`id`, `paciente_id`, `dolencia_actual`, `imagen1`, `imagen2`, `resultado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(4, 1, 'DOLOR MUELAS', 'ExamenDental4_17327493671.jpg', '101732747928.jpg', 'SE ECONTRARON 2 CARIES DEL PACIENTE', '2024-11-27', '2024-11-28 03:16:07', '2024-11-28 03:24:19');
 
 -- --------------------------------------------------------
 
@@ -140,6 +147,14 @@ CREATE TABLE `examen_detalles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `examen_detalles`
+--
+
+INSERT INTO `examen_detalles` (`id`, `examen_dental_id`, `pieza`, `diagnostico`, `observaciones`, `created_at`, `updated_at`) VALUES
+(4, 4, '11', 'CARIES LEVE', 'SIN URGENCIA', '2024-11-28 03:16:07', '2024-11-28 03:24:19'),
+(9, 4, '22', 'CARIES GRAVE', 'PROCEDERE INMEDIATAMENTE', '2024-11-28 03:24:00', '2024-11-28 03:24:00');
 
 -- --------------------------------------------------------
 
@@ -175,7 +190,19 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (7, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '16:47:44', '2024-11-27 20:47:44', '2024-11-27 20:47:44'),
 (8, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:11:08', '2024-11-27 21:11:08', '2024-11-27 21:11:08'),
 (9, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:11:47', '2024-11-27 21:11:47', '2024-11-27 21:11:47'),
-(10, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: SIN CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 17:12:32<br/>updated_at: 2024-11-27 17:12:32<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:12:45', '2024-11-27 21:12:45', '2024-11-27 21:12:45');
+(10, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: SIN CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 17:12:32<br/>updated_at: 2024-11-27 17:12:32<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:12:45', '2024-11-27 21:12:45', '2024-11-27 21:12:45'),
+(11, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.JPG<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:16:07<br/>', NULL, 'EXAMENES DENTALES', '2024-11-27', '23:16:07', '2024-11-28 03:16:07', '2024-11-28 03:16:07'),
+(12, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:16:07<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:24<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:19:24', '2024-11-28 03:19:24', '2024-11-28 03:19:24'),
+(13, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:16:07<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:24<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:19:24', '2024-11-28 03:19:24', '2024-11-28 03:19:24'),
+(14, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:24<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:44<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:19:44', '2024-11-28 03:19:44', '2024-11-28 03:19:44'),
+(15, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:24<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:44<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:19:44', '2024-11-28 03:19:44', '2024-11-28 03:19:44'),
+(16, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:19:44<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:20:35<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:20:35', '2024-11-28 03:20:35', '2024-11-28 03:20:35'),
+(17, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:20:35<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:21:28<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:21:28', '2024-11-28 03:21:28', '2024-11-28 03:21:28'),
+(18, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:20:35<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:21:28<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:21:28', '2024-11-28 03:21:28', '2024-11-28 03:21:28'),
+(19, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:21:28<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:23:04<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:23:04', '2024-11-28 03:23:04', '2024-11-28 03:23:04'),
+(20, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:23:04<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:24:00<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:24:00', '2024-11-28 03:24:00', '2024-11-28 03:24:00'),
+(21, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:24:00<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:24:09<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:24:09', '2024-11-28 03:24:09', '2024-11-28 03:24:09'),
+(22, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN EXAMEN DENTAL', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:24:09<br/>', 'id: 4<br/>paciente_id: 1<br/>dolencia_actual: DOLOR MUELAS<br/>imagen1: ExamenDental4_17327493671.jpg<br/>imagen2: 101732747928.jpg<br/>resultado: SE ECONTRARON 2 CARIES DEL PACIENTE<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 23:16:07<br/>updated_at: 2024-11-27 23:24:19<br/>', 'EXAMENES DENTALES', '2024-11-27', '23:24:19', '2024-11-28 03:24:19', '2024-11-28 03:24:19');
 
 -- --------------------------------------------------------
 
@@ -251,13 +278,22 @@ CREATE TABLE `seguimientos` (
   `id` bigint UNSIGNED NOT NULL,
   `paciente_id` bigint UNSIGNED NOT NULL,
   `examen_dental_id` bigint UNSIGNED NOT NULL,
+  `examen_detalle_id` bigint UNSIGNED NOT NULL,
   `pieza` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `observacion` varchar(400) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fecha_registro` date NOT NULL,
+  `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `seguimientos`
+--
+
+INSERT INTO `seguimientos` (`id`, `paciente_id`, `examen_dental_id`, `examen_detalle_id`, `pieza`, `estado`, `observacion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 4, '11', 'PENDIENTE', '', NULL, '2024-11-28 03:16:07', '2024-11-28 03:24:19'),
+(3, 1, 4, 9, '22', 'PENDIENTE', '', NULL, '2024-11-28 03:24:00', '2024-11-28 03:24:00');
 
 -- --------------------------------------------------------
 
@@ -354,7 +390,8 @@ ALTER TABLE `pacientes`
 ALTER TABLE `seguimientos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `seguimientos_paciente_id_foreign` (`paciente_id`),
-  ADD KEY `seguimientos_examen_dental_id_foreign` (`examen_dental_id`);
+  ADD KEY `seguimientos_examen_dental_id_foreign` (`examen_dental_id`),
+  ADD KEY `seguimientos_examen_detalle_id_foreign` (`examen_detalle_id`);
 
 --
 -- Indices de la tabla `users`
@@ -389,19 +426,19 @@ ALTER TABLE `entrenamiento_imagens`
 -- AUTO_INCREMENT de la tabla `examen_dentals`
 --
 ALTER TABLE `examen_dentals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `examen_detalles`
 --
 ALTER TABLE `examen_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -419,7 +456,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT de la tabla `seguimientos`
 --
 ALTER TABLE `seguimientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -454,6 +491,7 @@ ALTER TABLE `examen_detalles`
 --
 ALTER TABLE `seguimientos`
   ADD CONSTRAINT `seguimientos_examen_dental_id_foreign` FOREIGN KEY (`examen_dental_id`) REFERENCES `examen_dentals` (`id`),
+  ADD CONSTRAINT `seguimientos_examen_detalle_id_foreign` FOREIGN KEY (`examen_detalle_id`) REFERENCES `examen_detalles` (`id`),
   ADD CONSTRAINT `seguimientos_paciente_id_foreign` FOREIGN KEY (`paciente_id`) REFERENCES `pacientes` (`id`);
 COMMIT;
 

@@ -29,6 +29,12 @@ const tituloDialog = computed(() => {
 
 let disabled = ref(false);
 
+const listPiezas = ref([
+    11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 31, 32, 33, 34,
+    35, 36, 37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 51, 52, 53, 54, 55, 61, 62,
+    63, 64, 65, 71, 72, 73, 74, 75, 81, 82, 83, 84, 85,
+]);
+
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
@@ -47,7 +53,6 @@ const enviarFormulario = () => {
                 confirmButtonText: `Aceptar`,
             });
             limpiarExamenDental();
-            cambiarUrl(route("examen_dentals.index"));
         },
         onError: (err) => {
             Swal.fire({
@@ -110,8 +115,11 @@ const generarExamenDental = async () => {
         );
         if (response) {
             form["url_imagen2"] = response.data.url_imagen2;
-            form["imagen2"] = await generaArchivo2(response.data.url_imagen2);
+            form["imagen2"] = response.data.n;
             form["resultado"] = response.data.resultado;
+            for (let i = 1; i <= response.data.total_marcas; i++) {
+                agregarDetalle();
+            }
             setTimeout(() => {
                 loading.value = false;
                 muestra_resultado.value = true;
@@ -133,25 +141,22 @@ const generarExamenDental = async () => {
     }
 };
 
-const generaArchivo2 = async (url) => {
-    let array_url = url.split("?");
-    console.log(url);
-    url = array_url[0];
-    console.log(url);
-    const response = await axios.get(url, { responseType: "blob" });
-    // Obtener la extensión del archivo desde la URL
-    const extension = url.split(".").pop(); // Obtener la extensión del archivo
-
-    // Convertir la respuesta en un objeto Blob
-    const blob = new Blob([response.data], {
-        type: response.headers["content-type"],
+const agregarDetalle = () => {
+    form.examen_detalles.push({
+        id: 0,
+        examen_dental_id: 0,
+        pieza: "11",
+        diagnostico: "",
+        observaciones: "",
     });
+};
 
-    // Crear un objeto File a partir del Blob
-    const file = new File([blob], `nombre_archivo.${extension}`, {
-        type: response.headers["content-type"],
-    });
-    return file;
+const eliminarDetalle = (index) => {
+    let id = form.examen_detalles[index].id;
+    if (id != 0) {
+        form.eliminados.push(id);
+    }
+    form.examen_detalles.splice(index, 1);
 };
 
 onMounted(() => {
@@ -246,8 +251,9 @@ onMounted(() => {
                     </div>
                     <div class="col-md-2">
                         <button
+                            type="button"
                             class="btn btn-outline-primary btn-lg w-100"
-                            @click="generarExamenDental"
+                            @click.prevent="generarExamenDental"
                         >
                             GENERAR RESULTADO
                         </button>
@@ -279,14 +285,103 @@ onMounted(() => {
                 </div>
                 <div
                     class="row"
-                    v-if="
-                        (form.examen_dental && muestra_resultado) ||
-                        form.id != 0
-                    "
+                    v-if="(form.resultado && muestra_resultado) || form.id != 0"
                 >
+                    <div class="col-12 text-center mt-3">
+                        <h4 class="mb-0 text-info font-weight-bold">
+                            RESULTADO
+                        </h4>
+                        <div class="alert alert-info">
+                            <p class="m-0">
+                                {{ form.resultado }}
+                            </p>
+                        </div>
+                    </div>
                     <div class="col-12">
-                        <h4>RESULTADO</h4>
-                        <p class="">{{ form.resultado }}</p>
+                        <table class="table table-bordered">
+                            <thead class="bg-principal">
+                                <tr>
+                                    <th class="text-white">PIEZA</th>
+                                    <th class="text-white">DIAGNOSTICO</th>
+                                    <th class="text-white">OBSERVACIONES</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(
+                                        item, index
+                                    ) in form.examen_detalles"
+                                >
+                                    <td class="p-0">
+                                        <select
+                                            class="form-select rounded-0"
+                                            v-model="item.pieza"
+                                        >
+                                            <option
+                                                v-for="itempieza in listPiezas"
+                                                :value="itempieza"
+                                            >
+                                                {{ itempieza }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="p-0">
+                                        <input
+                                            type="text"
+                                            class="form-control rounded-0"
+                                            v-model="item.diagnostico"
+                                        />
+                                    </td>
+                                    <td class="p-0">
+                                        <input
+                                            type="text"
+                                            class="form-control rounded-0"
+                                            v-model="item.observaciones"
+                                        />
+                                    </td>
+                                    <td class="p-0">
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger btn-sm"
+                                            @click="eliminarDetalle(index)"
+                                        >
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="p-0">
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-info w-100 rounded-0"
+                                            @click="agregarDetalle"
+                                        >
+                                            Agregar fila
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p
+                            class="text-danger text-center"
+                            v-if="form.errors?.examen_detalles"
+                        >
+                            {{ form.errors?.examen_detalles }}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <button
+                            class="btn btn-primary"
+                            @click="enviarFormulario"
+                        >
+                            {{
+                                form.id != 0
+                                    ? "ACTUALIZAR REGISTRO"
+                                    : "GUARDAR RESULTADO"
+                            }}
+                        </button>
                     </div>
                 </div>
             </form>
