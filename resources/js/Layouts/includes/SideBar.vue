@@ -519,6 +519,30 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('examen_dentals.index')"
+                    class="menu-item"
+                    :class="[route_current == 'examen_dentals.index' ? 'active' : '']"
+                >
+                    <Link :href="route('examen_dentals.index')" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-clipboard-list"></i>
+                        </div>
+                        <div class="menu-text">Examen Dental</div>
+                    </Link>
+                </div>
+                <div
+                    v-if="user_logeado.permisos.includes('entrenamientos.index')"
+                    class="menu-item"
+                    :class="[route_current == 'entrenamientos.index' ? 'active' : '']"
+                >
+                    <Link :href="route('entrenamientos.index')" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-images"></i>
+                        </div>
+                        <div class="menu-text">Entrenamiento</div>
+                    </Link>
+                </div>
+                <div
                     v-if="user_logeado.permisos.includes('pacientes.index')"
                     class="menu-item"
                     :class="[route_current == 'pacientes.index' ? 'active' : '']"

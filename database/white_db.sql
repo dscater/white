@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-11-2024 a las 23:48:59
+-- Tiempo de generación: 27-11-2024 a las 18:15:32
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -64,6 +64,14 @@ CREATE TABLE `entrenamientos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `entrenamientos`
+--
+
+INSERT INTO `entrenamientos` (`id`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'CARIES', '2024-11-27', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(2, 'SIN CARIES', '2024-11-27', '2024-11-27 21:12:32', '2024-11-27 21:12:32');
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +85,27 @@ CREATE TABLE `entrenamiento_imagens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entrenamiento_imagens`
+--
+
+INSERT INTO `entrenamiento_imagens` (`id`, `entrenamiento_id`, `imagen`, `created_at`, `updated_at`) VALUES
+(2, 1, 'imagen11732726052_1.jpg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(3, 1, 'imagen11732726052_2.jpeg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(4, 1, 'imagen11732726052_3.jpg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(5, 1, 'imagen11732726052_4.jpeg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(6, 1, 'imagen11732726052_5.jpg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(7, 1, 'imagen11732726052_6.jpeg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(8, 1, 'imagen11732726052_7.jpg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(9, 1, 'imagen11732726052_8.jpeg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(10, 1, 'imagen11732726052_9.jpg', '2024-11-27 20:47:32', '2024-11-27 20:47:32'),
+(11, 1, 'imagen11732727495_4.jpg', '2024-11-27 21:11:35', '2024-11-27 21:11:35'),
+(12, 2, 'imagen21732727552_0.jpg', '2024-11-27 21:12:32', '2024-11-27 21:12:32'),
+(13, 2, 'imagen21732727552_1.jpg', '2024-11-27 21:12:32', '2024-11-27 21:12:32'),
+(14, 2, 'imagen21732727552_2.jpg', '2024-11-27 21:12:32', '2024-11-27 21:12:32'),
+(15, 2, 'imagen21732727552_3.jpg', '2024-11-27 21:12:32', '2024-11-27 21:12:32'),
+(16, 2, 'imagen21732727552_4.jpeg', '2024-11-27 21:12:32', '2024-11-27 21:12:32');
 
 -- --------------------------------------------------------
 
@@ -141,7 +170,12 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: SOLTERO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:47:54<br/>', NULL, 'PACIENTES', '2024-11-22', '23:47:54', '2024-11-23 03:47:54', '2024-11-23 03:47:54'),
 (3, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: SOLTERO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:47:54<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZS<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:29<br/>', 'PACIENTES', '2024-11-22', '23:48:29', '2024-11-23 03:48:29', '2024-11-23 03:48:29'),
 (4, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZS<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:29<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:39<br/>', 'PACIENTES', '2024-11-22', '23:48:39', '2024-11-23 03:48:39', '2024-11-23 03:48:39'),
-(5, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:39<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319324_1.png<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:44<br/>', 'PACIENTES', '2024-11-22', '23:48:44', '2024-11-23 03:48:44', '2024-11-23 03:48:44');
+(5, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319274_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:39<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319324_1.png<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:44<br/>', 'PACIENTES', '2024-11-22', '23:48:44', '2024-11-23 03:48:44', '2024-11-23 03:48:44'),
+(6, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732319324_1.png<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-22 23:48:44<br/>', 'id: 1<br/>nombre: MARIO<br/>paterno: CONDORI<br/>materno: SOLIZ<br/>ci: 3233322<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: HOMBRE<br/>estado_civil: CASADO<br/>nacionalidad: BOLIVIANO<br/>lugar_nac: LA PAZ<br/>ocupacion: TRANSPORTISTA<br/>dir: LOS OLIVOS<br/>fono: 77777777<br/>correo: MARIO@GMAIL.COM<br/>nom_familiar: PEDRO CONDORI<br/>fono_familiar: 666666<br/>foto: 1732722395_1.jpg<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 23:47:54<br/>updated_at: 2024-11-27 15:46:35<br/>', 'PACIENTES', '2024-11-27', '15:46:35', '2024-11-27 19:46:35', '2024-11-27 19:46:35'),
+(7, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '16:47:44', '2024-11-27 20:47:44', '2024-11-27 20:47:44'),
+(8, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:11:08', '2024-11-27 21:11:08', '2024-11-27 21:11:08'),
+(9, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'id: 1<br/>tipo: CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 16:47:32<br/>updated_at: 2024-11-27 16:47:32<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:11:47', '2024-11-27 21:11:47', '2024-11-27 21:11:47'),
+(10, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: SIN CARIES<br/>fecha_registro: 2024-11-27<br/>created_at: 2024-11-27 17:12:32<br/>updated_at: 2024-11-27 17:12:32<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-11-27', '17:12:45', '2024-11-27 21:12:45', '2024-11-27 21:12:45');
 
 -- --------------------------------------------------------
 
@@ -205,7 +239,7 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`id`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `fecha_nac`, `sexo`, `estado_civil`, `nacionalidad`, `lugar_nac`, `ocupacion`, `dir`, `fono`, `correo`, `nom_familiar`, `fono_familiar`, `foto`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'MARIO', 'CONDORI', 'SOLIZ', '3233322', 'LP', '2000-01-01', 'HOMBRE', 'CASADO', 'BOLIVIANO', 'LA PAZ', 'TRANSPORTISTA', 'LOS OLIVOS', '77777777', 'MARIO@GMAIL.COM', 'PEDRO CONDORI', '666666', '1732319324_1.png', '2024-11-22', '2024-11-23 03:47:54', '2024-11-23 03:48:44');
+(1, 'MARIO', 'CONDORI', 'SOLIZ', '3233322', 'LP', '2000-01-01', 'HOMBRE', 'CASADO', 'BOLIVIANO', 'LA PAZ', 'TRANSPORTISTA', 'LOS OLIVOS', '77777777', 'MARIO@GMAIL.COM', 'PEDRO CONDORI', '666666', '1732722395_1.jpg', '2024-11-22', '2024-11-23 03:47:54', '2024-11-27 19:46:35');
 
 -- --------------------------------------------------------
 
@@ -343,13 +377,13 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `entrenamientos`
 --
 ALTER TABLE `entrenamientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `entrenamiento_imagens`
 --
 ALTER TABLE `entrenamiento_imagens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `examen_dentals`
@@ -367,7 +401,7 @@ ALTER TABLE `examen_detalles`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`

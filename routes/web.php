@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\EntrenamientoController;
+use App\Http\Controllers\EntrenamientoImagenController;
+use App\Http\Controllers\ExamenDentalController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +32,7 @@ Route::get("configuracions/getConfiguracion", [ConfiguracionController::class, '
 Route::middleware('auth')->prefix("admin")->group(function () {
     // INICIO
     Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
+    Route::get("/inicio/getMaximoImagenes", [InicioController::class, 'getMaximoImagenes'])->name("entrenamientos.getMaximoImagenes");
 
     // CONFIGURACION
     Route::resource("configuracions", ConfiguracionController::class)->only(
@@ -63,6 +67,28 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("pacientes/listado", [PacienteController::class, 'listado'])->name("pacientes.listado");
     Route::resource("pacientes", PacienteController::class)->only(
         ["index", "store", "update", "show", "destroy"]
+    );
+
+    // EXAMEN DENTAL
+    Route::get("examen_dentals/api", [ExamenDentalController::class, 'api'])->name("examen_dentals.api");
+    Route::get("/examen_dentals/paginado", [ExamenDentalController::class, 'paginado'])->name("examen_dentals.paginado");
+    Route::get("/examen_dentals/listado", [ExamenDentalController::class, 'listado'])->name("examen_dentals.listado");
+    Route::post("/examen_dentals/procesarImagen", [ExamenDentalController::class, 'procesarImagen'])->name("examen_dentals.procesarImagen");
+    Route::resource("examen_dentals", ExamenDentalController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
+    );
+
+    // ENTRENAMIENTO IMAGENES
+    Route::delete("/entrenamiento_imagens/{entrenamiento_imagen}", [EntrenamientoImagenController::class, 'destroy'])->name("entrenamiento_imagens.destroy");
+
+    // ENTRENAMIENTOS
+    Route::get("entrenamientos/api", [EntrenamientoController::class, 'api'])->name("entrenamientos.api");
+    Route::get("/entrenamientos/getTiposDiagnosticos", [EntrenamientoController::class, 'getTiposDiagnosticos'])->name("entrenamientos.getTiposDiagnosticos");
+    Route::get("/entrenamientos/paginado", [EntrenamientoController::class, 'paginado'])->name("entrenamientos.paginado");
+    Route::get("/entrenamientos/listado", [EntrenamientoController::class, 'listado'])->name("entrenamientos.listado");
+    Route::post("/entrenamientos/procesarImagen", [EntrenamientoController::class, 'procesarImagen'])->name("entrenamientos.procesarImagen");
+    Route::resource("entrenamientos", EntrenamientoController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
     );
 
     // REPORTES
