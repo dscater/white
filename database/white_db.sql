@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-11-2024 a las 23:26:49
+-- Tiempo de generación: 28-11-2024 a las 14:01:48
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -48,7 +48,7 @@ CREATE TABLE `configuracions` (
 --
 
 INSERT INTO `configuracions` (`id`, `nombre_sistema`, `alias`, `razon_social`, `ciudad`, `dir`, `fono`, `correo`, `web`, `actividad`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'WHITE', 'WT', 'WHITE S.A.', 'LA PAZ', 'ZONA LOS OLIVOS', '77777777', 'WHITE@GMAIL.COM', 'WHITE.COM', 'ACTIVIDAD', '1725897866_1.jpg', NULL, '2024-11-11 19:58:10');
+(1, 'WHITE', 'WT', 'WHITE S.A.', 'LA PAZ', 'ZONA LOS OLIVOS', '77777777', 'WHITE@GMAIL.COM', 'WHITE.COM', 'ACTIVIDAD', '1725897866_1.jpg', NULL, '2024-11-28 17:53:59');
 
 -- --------------------------------------------------------
 
@@ -116,6 +116,8 @@ INSERT INTO `entrenamiento_imagens` (`id`, `entrenamiento_id`, `imagen`, `create
 CREATE TABLE `examen_dentals` (
   `id` bigint UNSIGNED NOT NULL,
   `paciente_id` bigint UNSIGNED NOT NULL,
+  `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nro` int NOT NULL,
   `dolencia_actual` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `imagen1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `imagen2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -129,8 +131,8 @@ CREATE TABLE `examen_dentals` (
 -- Volcado de datos para la tabla `examen_dentals`
 --
 
-INSERT INTO `examen_dentals` (`id`, `paciente_id`, `dolencia_actual`, `imagen1`, `imagen2`, `resultado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(4, 1, 'DOLOR MUELAS', 'ExamenDental4_17327493671.jpg', '101732747928.jpg', 'SE ECONTRARON 2 CARIES DEL PACIENTE', '2024-11-27', '2024-11-28 03:16:07', '2024-11-28 03:24:19');
+INSERT INTO `examen_dentals` (`id`, `paciente_id`, `codigo`, `nro`, `dolencia_actual`, `imagen1`, `imagen2`, `resultado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(4, 1, 'CE.1', 1, 'DOLOR MUELAS', 'ExamenDental4_17327493671.jpg', '101732747928.jpg', 'SE ECONTRARON 2 CARIES DEL PACIENTE', '2024-11-27', '2024-11-28 03:16:07', '2024-11-28 03:24:19');
 
 -- --------------------------------------------------------
 
@@ -280,7 +282,7 @@ CREATE TABLE `seguimientos` (
   `examen_dental_id` bigint UNSIGNED NOT NULL,
   `examen_detalle_id` bigint UNSIGNED NOT NULL,
   `pieza` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDIENTE',
   `observacion` varchar(400) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -292,7 +294,7 @@ CREATE TABLE `seguimientos` (
 --
 
 INSERT INTO `seguimientos` (`id`, `paciente_id`, `examen_dental_id`, `examen_detalle_id`, `pieza`, `estado`, `observacion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 4, '11', 'PENDIENTE', '', NULL, '2024-11-28 03:16:07', '2024-11-28 03:24:19'),
+(1, 1, 4, 4, '11', 'EN PROCESO', 'observacion 1', '2024-11-28', '2024-11-28 03:16:07', '2024-11-28 16:51:44'),
 (3, 1, 4, 9, '22', 'PENDIENTE', '', NULL, '2024-11-28 03:24:00', '2024-11-28 03:24:00');
 
 -- --------------------------------------------------------

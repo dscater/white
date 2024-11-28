@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ExamenDental;
 use App\Models\ExamenDetalle;
 use App\Models\HistorialAccion;
+use App\Models\Paciente;
 use App\Models\Seguimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,14 @@ class ExamenDentalController extends Controller
     public function listado()
     {
         $examen_dentals = ExamenDental::select("examen_dentals.*")->get();
+        return response()->JSON([
+            "examen_dentals" => $examen_dentals
+        ]);
+    }
+
+    public function paciente(Paciente $paciente)
+    {
+        $examen_dentals = ExamenDental::select("examen_dentals.*")->where("paciente_id", $paciente->id)->get();
         return response()->JSON([
             "examen_dentals" => $examen_dentals
         ]);
@@ -162,6 +171,9 @@ class ExamenDentalController extends Controller
         DB::beginTransaction();
         try {
             // crear el ExamenDental
+            $array_cod = ExamenDental::getCodigoNuevo();
+            $request["codigo"] = $array_cod[0];
+            $request["nro"] = $array_cod[1];
             $nuevo_examen_dental = ExamenDental::create(array_map('mb_strtoupper', $request->except('imagen1', "examen_detalles", "eliminados")));
             $nuevo_examen_dental->imagen2 = $request->imagen2;
             if ($request->file("imagen1")) {
@@ -212,7 +224,10 @@ class ExamenDentalController extends Controller
         }
     }
 
-    public function show(ExamenDental $examen_dental) {}
+    public function show(ExamenDental $examen_dental) {
+
+        return response()->JSON($examen_dental->load(["examen_detalles.seguimiento"]));
+    }
 
     public function edit(ExamenDental $examen_dental)
     {

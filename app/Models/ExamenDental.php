@@ -49,4 +49,17 @@ class ExamenDental extends Model
     {
         return $this->hasOne(Seguimiento::class, 'examen_dental_id');
     }
+
+    // FUNCIONES
+    public static function getCodigoNuevo()
+    {
+        $ultimo = ExamenDental::get()->last();
+        $nro = 1;
+        if ($ultimo) {
+            $nro = (int)$ultimo->nro_cod + 1;
+        }
+
+        $codigo = "CE." . $nro;
+        return [$codigo, $nro];
+    }
 }

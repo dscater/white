@@ -41,9 +41,7 @@ const txtBtn = computed(() => {
 
 const listTipos = ref([
     { value: "TODOS", label: "TODOS" },
-    { value: "ADMINISTRADOR", label: "ADMINISTRADOR" },
-    { value: "SUPERVISOR", label: "SUPERVISOR" },
-    { value: "AGENTE INMOBILIARIO", label: "AGENTE INMOBILIARIO" },
+    { value: "DOCTOR", label: "DOCTOR" },
 ]);
 
 const generarReporte = () => {
@@ -72,7 +70,7 @@ const generarReporte = () => {
                 <div class="card-body">
                     <form @submit.prevent="generarReporte">
                         <div class="row">
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <select
                                     :hide-details="
                                         form.errors?.tipo ? false : true
@@ -93,7 +91,7 @@ const generarReporte = () => {
                                         {{ item.label }}
                                     </option>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="col-md-12 text-center mt-3">
                                 <button
                                     class="btn btn-primary"

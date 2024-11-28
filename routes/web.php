@@ -8,6 +8,7 @@ use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     );
 
     // EXAMEN DENTAL
+    Route::get("examen_dentals/paciente/{paciente}", [ExamenDentalController::class, 'paciente'])->name("examen_dentals.paciente");
     Route::get("examen_dentals/api", [ExamenDentalController::class, 'api'])->name("examen_dentals.api");
     Route::get("/examen_dentals/paginado", [ExamenDentalController::class, 'paginado'])->name("examen_dentals.paginado");
     Route::get("/examen_dentals/listado", [ExamenDentalController::class, 'listado'])->name("examen_dentals.listado");
@@ -91,8 +93,22 @@ Route::middleware('auth')->prefix("admin")->group(function () {
         ["index", "create", "store", "edit", "update", "show", "destroy"]
     );
 
+    // SEGUIMIENTOS
+    Route::resource("seguimientos", SeguimientoController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
+    );
+
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
     Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
+    
+    Route::get('reportes/pacientes', [ReporteController::class, 'pacientes'])->name("reportes.pacientes");
+    Route::get('reportes/r_pacientes', [ReporteController::class, 'r_pacientes'])->name("reportes.r_pacientes");
+    
+    Route::get('reportes/examen_dentals', [ReporteController::class, 'examen_dentals'])->name("reportes.examen_dentals");
+    Route::get('reportes/r_examen_dentals', [ReporteController::class, 'r_examen_dentals'])->name("reportes.r_examen_dentals");
+    
+    Route::get('reportes/seguimientos', [ReporteController::class, 'seguimientos'])->name("reportes.seguimientos");
+    Route::get('reportes/r_seguimientos', [ReporteController::class, 'r_seguimientos'])->name("reportes.r_seguimientos");
 });
 require __DIR__ . '/auth.php';

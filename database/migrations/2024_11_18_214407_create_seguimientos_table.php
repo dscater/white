@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger("examen_dental_id");
             $table->unsignedBigInteger("examen_detalle_id");
             $table->string("pieza");
-            $table->string("estado");
+            $table->string("estado")->default("PENDIENTE");
             $table->string("observacion", 400)->nullable();
             $table->date("fecha_registro")->nullable();
             $table->timestamps();

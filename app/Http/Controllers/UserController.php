@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lote;
+use App\Models\Paciente;
 use App\Models\User;
 use App\Models\VentaLote;
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +27,16 @@ class UserController extends Controller
             "examen_dentals.create",
             "examen_dentals.edit",
             "examen_dentals.destroy",
-            
+
             "entrenamientos.index",
             "entrenamientos.create",
             "entrenamientos.edit",
             "entrenamientos.destroy",
+
+            "seguimientos.index",
+            "seguimientos.create",
+            "seguimientos.edit",
+            "seguimientos.destroy",
 
             "configuracions.index",
             "configuracions.create",
@@ -38,6 +44,9 @@ class UserController extends Controller
             "configuracions.destroy",
 
             "reportes.usuarios",
+            "reportes.pacientes",
+            "reportes.examen_dentals",
+            "reportes.seguimientos",
         ],
     ];
 
@@ -87,30 +96,26 @@ class UserController extends Controller
                 "url" => "usuarios.index"
             ];
         }
-
-        $array_infos[] = [
-            'label' => 'CONTRATOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-clipboard-list",
-            "url" => ""
-        ];
-
-        $array_infos[] = [
-            'label' => 'PRODUCTOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-box",
-            "url" => ""
-        ];
-
-        $array_infos[] = [
-            'label' => 'VEHÍCULOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-truck",
-            "url" => ""
-        ];
+        if (in_array('pacientes.index', self::$permisos[$tipo])) {
+            $pacientes = Paciente::count();
+            $array_infos[] = [
+                'label' => 'PACIENTES',
+                'cantidad' => $pacientes,
+                'color' => 'bg-principal',
+                'icon' => "fa-users",
+                "url" => "pacientes.index"
+            ];
+        }
+        if (in_array('examen_dentals.index', self::$permisos[$tipo])) {
+            $examen_dentals = Paciente::count();
+            $array_infos[] = [
+                'label' => 'EXÁMENES DENTALES',
+                'cantidad' => $examen_dentals,
+                'color' => 'bg-principal',
+                'icon' => "fa-clipboard-list",
+                "url" => "examen_dentals.index"
+            ];
+        }
 
         return $array_infos;
     }

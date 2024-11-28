@@ -20,19 +20,19 @@ onMounted(async () => {});
 onBeforeUnmount(() => {});
 </script>
 <template>
-    <Head title="Examen Dental"></Head>
+    <Head title="Exámen Dental"></Head>
 
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
         <li class="breadcrumb-item">
-            <Link :href="route('examen_dentals.index')">Examen Dental</Link>
+            <Link :href="route('examen_dentals.index')">Exámen Dental</Link>
         </li>
         <li class="breadcrumb-item active">Nuevo</li>
     </ol>
     <!-- END breadcrumb -->
     <!-- BEGIN page-header -->
-    <h1 class="page-header">Examen Dental > nuevo</h1>
+    <h1 class="page-header">Exámen Dental > nuevo</h1>
     <!-- END page-header -->
 
     <div class="row">

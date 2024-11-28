@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('examen_dentals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("paciente_id");
+            $table->string("codigo");
+            $table->integer("nro");
             $table->string("dolencia_actual", 300);
             $table->string("imagen1")->nullable();
             $table->string("imagen2")->nullable();

@@ -519,11 +519,18 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
-                    v-if="user_logeado.permisos.includes('examen_dentals.index')"
+                    v-if="
+                        user_logeado.permisos.includes('examen_dentals.index')
+                    "
                     class="menu-item"
-                    :class="[route_current == 'examen_dentals.index' ? 'active' : '']"
+                    :class="[
+                        route_current == 'examen_dentals.index' ? 'active' : '',
+                    ]"
                 >
-                    <Link :href="route('examen_dentals.index')" class="menu-link">
+                    <Link
+                        :href="route('examen_dentals.index')"
+                        class="menu-link"
+                    >
                         <div class="menu-icon">
                             <i class="fa fa-clipboard-list"></i>
                         </div>
@@ -531,11 +538,32 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
-                    v-if="user_logeado.permisos.includes('entrenamientos.index')"
+                    v-if="user_logeado.permisos.includes('seguimientos.index')"
                     class="menu-item"
-                    :class="[route_current == 'entrenamientos.index' ? 'active' : '']"
+                    :class="[
+                        route_current == 'seguimientos.index' ? 'active' : '',
+                    ]"
                 >
-                    <Link :href="route('entrenamientos.index')" class="menu-link">
+                    <Link :href="route('seguimientos.index')" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-clipboard-check"></i>
+                        </div>
+                        <div class="menu-text">Seguimiento</div>
+                    </Link>
+                </div>
+                <div
+                    v-if="
+                        user_logeado.permisos.includes('entrenamientos.index')
+                    "
+                    class="menu-item"
+                    :class="[
+                        route_current == 'entrenamientos.index' ? 'active' : '',
+                    ]"
+                >
+                    <Link
+                        :href="route('entrenamientos.index')"
+                        class="menu-link"
+                    >
                         <div class="menu-icon">
                             <i class="fa fa-images"></i>
                         </div>
@@ -545,7 +573,9 @@ const logout = () => {
                 <div
                     v-if="user_logeado.permisos.includes('pacientes.index')"
                     class="menu-item"
-                    :class="[route_current == 'pacientes.index' ? 'active' : '']"
+                    :class="[
+                        route_current == 'pacientes.index' ? 'active' : '',
+                    ]"
                 >
                     <Link :href="route('pacientes.index')" class="menu-link">
                         <div class="menu-icon">
@@ -570,17 +600,11 @@ const logout = () => {
                     class="menu-item has-sub"
                     v-if="
                         user_logeado.permisos.includes('reportes.usuarios') ||
+                        user_logeado.permisos.includes('reportes.pacientes') ||
                         user_logeado.permisos.includes(
-                            'reportes.lotes_terrenos'
+                            'reportes.examen_dentals'
                         ) ||
-                        user_logeado.permisos.includes('reportes.clientes') ||
-                        user_logeado.permisos.includes(
-                            'reportes.planilla_pagos'
-                        ) ||
-                        user_logeado.permisos.includes(
-                            'reportes.g_lotes_terrenos'
-                        ) ||
-                        user_logeado.permisos.includes('reportes.g_venta_lotes')
+                        user_logeado.permisos.includes('reportes.seguimientos')
                     "
                 >
                     <a href="javascript:;" class="menu-link">
@@ -613,103 +637,61 @@ const logout = () => {
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.lotes_terrenos'
+                                    'reportes.pacientes'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.lotes_terrenos'
+                                route_current == 'reportes.pacientes'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.lotes_terrenos')"
+                                :href="route('reportes.pacientes')"
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Lotes de Terrenos
+                                    Lista de pacientes
                                 </div></Link
                             >
                         </div>
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.clientes'
+                                    'reportes.examen_dentals'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.clientes'
+                                route_current == 'reportes.examen_dentals'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.clientes')"
+                                :href="route('reportes.examen_dentals')"
                                 class="menu-link"
-                                ><div class="menu-text">Clientes</div></Link
+                                ><div class="menu-text">Exámen dental</div></Link
                             >
                         </div>
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.planilla_pagos'
+                                    'reportes.seguimientos'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.planilla_pagos'
+                                route_current == 'reportes.seguimientos'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.planilla_pagos')"
+                                :href="route('reportes.seguimientos')"
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Planilla de Pagos
-                                </div></Link
-                            >
-                        </div>
-                        <div
-                            v-if="
-                                user_logeado.permisos.includes(
-                                    'reportes.g_lotes_terrenos'
-                                )
-                            "
-                            class="menu-item"
-                            :class="[
-                                route_current == 'reportes.g_lotes_terrenos'
-                                    ? 'active'
-                                    : '',
-                            ]"
-                        >
-                            <Link
-                                :href="route('reportes.g_lotes_terrenos')"
-                                class="menu-link"
-                                ><div class="menu-text">
-                                    G. Lotes de Terrenos
-                                </div></Link
-                            >
-                        </div>
-                        <div
-                            v-if="
-                                user_logeado.permisos.includes(
-                                    'reportes.g_venta_lotes'
-                                )
-                            "
-                            class="menu-item"
-                            :class="[
-                                route_current == 'reportes.g_venta_lotes'
-                                    ? 'active'
-                                    : '',
-                            ]"
-                        >
-                            <Link
-                                :href="route('reportes.g_venta_lotes')"
-                                class="menu-link"
-                                ><div class="menu-text">
-                                    Venta de Terrenos
+                                    Seguimiento
                                 </div></Link
                             >
                         </div>

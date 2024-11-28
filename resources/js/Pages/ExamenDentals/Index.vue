@@ -17,7 +17,7 @@ const { deleteExamenDental } = useExamenDentals();
 const columns = [
     {
         title: "",
-        data: "id",
+        data: "codigo",
     },
     {
         title: "PACIENTE",
@@ -40,6 +40,9 @@ const columns = [
         data: null,
         render: function (data, type, row) {
             return `
+                <button class="mx-0 rounded-0 btn btn-primary imprimir" data-id="${
+                    row.id
+                }"><i class="fa fa-file-pdf"></i></button>
                 <button class="mx-0 rounded-0 btn btn-warning editar" data-id="${
                     row.id
                 }"><i class="fa fa-edit"></i></button>
@@ -57,6 +60,15 @@ const columns = [
 const loading = ref(false);
 
 const accionesRow = () => {
+    // imprimir
+    $("#table-examen_dental").on("click", "button.imprimir", function (e) {
+        e.preventDefault();
+        let id = $(this).attr("data-id");
+        const url = route("reportes.r_examen_dentals", {
+            examen_dental_id: id,
+        });
+        window.open(url, "_blank");
+    });
     // editar
     $("#table-examen_dental").on("click", "button.editar", function (e) {
         e.preventDefault();
