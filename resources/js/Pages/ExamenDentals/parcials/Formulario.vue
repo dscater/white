@@ -291,7 +291,7 @@ onMounted(() => {
                         <h4 class="mb-0 text-info font-weight-bold">
                             RESULTADO
                         </h4>
-                        <div class="alert alert-info">
+                        <div class="alert alert-info" v-show="muestra_resultado">
                             <p class="m-0">
                                 {{ form.resultado }}
                             </p>
