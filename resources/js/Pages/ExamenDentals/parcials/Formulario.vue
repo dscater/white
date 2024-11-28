@@ -161,6 +161,7 @@ const eliminarDetalle = (index) => {
 
 onMounted(() => {
     if (form.id && form.id != "") {
+        muestra_resultado.value = true;
         cargarListas(form.paciente_id, true, true);
     } else {
         cargarListas();
@@ -291,7 +292,10 @@ onMounted(() => {
                         <h4 class="mb-0 text-info font-weight-bold">
                             RESULTADO
                         </h4>
-                        <div class="alert alert-info" v-show="muestra_resultado">
+                        <div
+                            class="alert alert-info"
+                            v-show="muestra_resultado"
+                        >
                             <p class="m-0">
                                 {{ form.resultado }}
                             </p>
