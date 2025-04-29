@@ -11,6 +11,8 @@ class ExamenDental extends Model
 
     protected $fillable = [
         "paciente_id",
+        "codigo",
+        "nro",
         "dolencia_actual",
         "imagen1",
         "imagen2",
@@ -56,7 +58,7 @@ class ExamenDental extends Model
         $ultimo = ExamenDental::get()->last();
         $nro = 1;
         if ($ultimo) {
-            $nro = (int)$ultimo->nro_cod + 1;
+            $nro = (int)$ultimo->nro + 1;
         }
 
         $codigo = "CE." . $nro;
