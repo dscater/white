@@ -36,6 +36,7 @@ const listPiezas = ref([
 ]);
 
 const enviarFormulario = () => {
+    disabled.value = true;
     let url =
         form["_method"] == "POST"
             ? route("examen_dentals.store")
@@ -53,8 +54,10 @@ const enviarFormulario = () => {
                 confirmButtonText: `Aceptar`,
             });
             limpiarExamenDental();
+            disabled.value = false;
         },
         onError: (err) => {
+            disabled.value = false;
             Swal.fire({
                 icon: "info",
                 title: "Error",
@@ -379,6 +382,7 @@ onMounted(() => {
                         <button
                             class="btn btn-primary"
                             @click="enviarFormulario"
+                            :disabled="disabled"
                         >
                             {{
                                 form.id != 0
